@@ -1,0 +1,5 @@
+version: '0.1'
+storage:
+  type: 'mongo'
+  host: '127.0.0.1'
+  port: '7000'

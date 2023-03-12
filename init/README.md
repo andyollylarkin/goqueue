@@ -1,0 +1,1 @@
+# Systemd configuration for goqueue
