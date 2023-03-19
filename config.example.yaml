@@ -3,3 +3,11 @@ storage:
   type: 'mongo'
   host: '127.0.0.1'
   port: '7000'
+secure_connection:
+  use_tls: true
+  ca_cert_file_path: "/home/denis/Desktop/ca_cert.pem"
+  cert_file_path: "/home/denis/Desktop/q_cert.pem"
+  key_file_path: "/home/denis/Desktop/q_key.key"
+compression_type: "gzip"
+listen: "*"
+port: 9001

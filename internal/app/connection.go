@@ -18,16 +18,17 @@ type ConnectionOptions struct {
 	CaCertPath   string
 	CertFilePath string
 	KeyFilePath  string
-	MaxClients   uint16
+	MaxClients   uint16 // TODO: pass this param via config file
 	IP           string
 	Port         uint16
 }
 
 func (o ConnectionOptions) Validate() error {
-	return nil
+	//	TODO: implement options validation
+	panic("not implemented yet")
 }
 
-func MustNewConnection(opts ConnectionOptions) (Connection, error) {
+func NewConnection(opts ConnectionOptions) (Connection, error) {
 	var conn Connection
 	l, err := createListener(opts)
 	if err != nil {
