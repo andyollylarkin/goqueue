@@ -2,7 +2,6 @@ package eventbus
 
 import (
 	"github.com/sirupsen/logrus"
-	"goqueue/pkg/utils"
 )
 
 type EventBus struct {
@@ -10,8 +9,8 @@ type EventBus struct {
 	logger      *logrus.Logger
 }
 
-func NewEventBus() *EventBus {
-	return &EventBus{subscribers: make(map[string][]*Subscriber), logger: utils.NewLogger()}
+func NewEventBus(logger *logrus.Logger) *EventBus {
+	return &EventBus{subscribers: make(map[string][]*Subscriber), logger: logger}
 }
 
 func (b *EventBus) Notify(event Event) {
@@ -29,7 +28,7 @@ func (b *EventBus) EmitEvent(event Event) {
 	// count amount of subscribers for event
 	for k, v := range b.subscribers {
 		if k == event.EventType() {
-			event.RegisterSubscriber(len(v))
+			event.CountSubscribers(len(v))
 			break
 		}
 	}

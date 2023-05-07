@@ -26,17 +26,12 @@ type Config struct {
 	ListenPort      uint16 `yaml:"port"`
 }
 
-func MustNewConfig(debugMode bool) Config {
-	return mustPrepareConfig(debugMode)
+func MustNewConfig(configPath string) Config {
+	return mustPrepareConfig(configPath)
 }
 
-func mustPrepareConfig(debugMode bool) Config {
-	var namePart string = ""
-	if debugMode {
-		namePart = ".example"
-	}
-	configName := fmt.Sprintf("../../config%s.yaml", namePart)
-	cfgFile, err := os.ReadFile(configName)
+func mustPrepareConfig(configPath string) Config {
+	cfgFile, err := os.ReadFile(configPath)
 	if err != nil && errors.Is(err, os.ErrNotExist) {
 		panic(err)
 	}

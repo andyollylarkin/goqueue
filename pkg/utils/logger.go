@@ -2,16 +2,21 @@ package utils
 
 import (
 	"github.com/sirupsen/logrus"
-	sysloghook "github.com/sirupsen/logrus/hooks/syslog"
-	"log/syslog"
+	"os"
 )
 
-func NewLogger() *logrus.Logger {
+func NewLogger(isDebugMode bool) *logrus.Logger {
 	var l logrus.Logger
-	hook, err := sysloghook.NewSyslogHook("", "", syslog.LOG_LOCAL7, "go-queue")
-	if err != nil {
-		l.Hooks.Add(hook)
+	l.Out = os.Stdout
+	if isDebugMode {
+		l.Level = logrus.DebugLevel
+	} else {
+		l.Level = logrus.InfoLevel
 	}
-	l.Formatter = new(logrus.JSONFormatter)
+	//hook, err := sysloghook.NewSyslogHook("", "", syslog.LOG_LOCAL7, "go-queue")
+	//if err != nil {
+	//	l.Hooks.Add(hook)
+	//}
+	l.Formatter = new(logrus.TextFormatter)
 	return &l
 }
